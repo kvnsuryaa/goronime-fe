@@ -2,6 +2,7 @@ version: '3.7'
 
 services:
   goronime:
+    container_name: goronime_fe
     image: goronime
     build:
       context: .
