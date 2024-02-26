@@ -89,7 +89,8 @@ background: #7486FF;
 }
 
 .anime-poster {
-    width: 10rem;
+    width: 23%;
+    max-width: 11rem;
     /* width: auto; */
     height: 200px;
     border-radius: 4px;
@@ -115,6 +116,34 @@ background: #7486FF;
     font-size: 13px;
     background-color: rgba(0, 0, 0, 0.528);
     overflow: hidden;
+}
+
+.poster-episode {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 3px;
+    font-size: 13px;
+    min-width: 20px;
+    text-align: center;
+    width: auto;
+    height: 25px;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 0px 0px 10px 0px;
+    background-color: #7486FF;
+}
+
+.poster-type {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 3px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 0px 0px 0px 5px;
+    background-color: #7486FF;
 }
 
 .anime-poster:hover  .poster-title {
@@ -203,3 +232,4 @@ background: #7486FF;
     background-color: rgba(0,0,0,.6);
     object-fit: contain
 }
+

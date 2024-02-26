@@ -22,11 +22,11 @@
             <a class="nav-link" href="#">Anime List</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Schedule</a>
+            <router-link to="/schedule" class="nav-link">Schedule</router-link>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="#">Upcoming Anime</a>
-          </li>
+          </li> -->
         </ul>
         <button class="btn btn-outline-primary" @click="$router.push('/auth/signin')">
           Sign In

@@ -14,13 +14,9 @@
               src="https://cdn.myanimelist.net/images/anime/1752/139314.jpg"
               alt="anime_poster"
             />
-            <p class="poster-episode">2</p>
+            <p class="poster-episode">8</p>
             <p class="poster-type">TV</p>
-            <p class="poster-title">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt beatae laboriosam
-              ducimus odio libero vero quasi iste facilis voluptatum ab. Qui perspiciatis eos, dicta
-              et ullam pariatur libero repellat modi?
-            </p>
+            <p class="poster-title">Tsuki ga Michibiku Isekai Douchuu Season 2</p>
           </div>
         </div>
       </div>

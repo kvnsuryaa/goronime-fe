@@ -9,6 +9,7 @@ import AuthLayout from '../layout/AuthLayout.vue'
 import MainPage from '../pages/MainPage.vue'
 import DetailAnime from '../pages/DetailAnime.vue'
 import WatchPage from '../pages/WatchAnime.vue'
+import SchedulePage from '../pages/ScheduleAnime.vue'
 
 import LoginForm from '../components/auth/LoginForm.vue'
 import RegisterForm from '../components/auth/RegisterForm.vue'
@@ -25,6 +26,11 @@ const router = createRouter({
           path: '/',
           name: 'mainPage',
           component: MainPage
+        },
+        {
+          path: '/schedule',
+          name: 'schedulePage',
+          component: SchedulePage
         },
         {
           path: '/anime/:slug',
