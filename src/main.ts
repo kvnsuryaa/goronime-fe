@@ -1,6 +1,7 @@
 // import Vue, { createApp} from '@vue/compat';
 import { createApp } from 'vue';
 import { createPinia } from 'pinia'
+import piniaPersistedPlugin from 'pinia-plugin-persistedstate'
 
 import ElementPlus from 'element-plus'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
@@ -15,14 +16,23 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import App from './App.vue'
 import router from './router'
 
+// config axios
+import axios from 'axios'
+axios.defaults.baseURL = import.meta.env.VITE_BASE_API
+
+
+
 // Vue.use(BootstrapVue);
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }
 
+const pinia = createPinia()
+pinia.use(piniaPersistedPlugin)
+
 app.use(ElementPlus)
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 
 app.mount('#app')

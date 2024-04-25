@@ -92,7 +92,7 @@ background: #7486FF;
     width: 23%;
     max-width: 11rem;
     /* width: auto; */
-    height: 200px;
+    height: 220px;
     border-radius: 4px;
     position: relative;
     overflow: hidden;
@@ -116,6 +116,7 @@ background: #7486FF;
     font-size: 13px;
     background-color: rgba(0, 0, 0, 0.528);
     overflow: hidden;
+    width: 100%;
 }
 
 .poster-episode {

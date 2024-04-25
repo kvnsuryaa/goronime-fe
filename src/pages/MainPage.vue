@@ -6,17 +6,14 @@
         <div class="d-flex flex-wrap" style="gap: 10px">
           <div
             class="anime-poster"
-            v-for="(item, i) in 12"
+            v-for="(item, i) in animeStore.anime"
             :key="i"
-            @click="$router.push(`/anime/${item}`)"
+            @click="$router.push(`/anime/${item.slug}`)"
           >
-            <img
-              src="https://cdn.myanimelist.net/images/anime/1752/139314.jpg"
-              alt="anime_poster"
-            />
-            <p class="poster-episode">8</p>
+            <img :src="item.poster || '/broken_image2.webp'" alt="anime_poster" />
+            <p class="poster-episode">{{ item.latestEpisodeNumber }}</p>
             <p class="poster-type">TV</p>
-            <p class="poster-title">Tsuki ga Michibiku Isekai Douchuu Season 2</p>
+            <p class="poster-title">{{ item.title }}</p>
           </div>
         </div>
       </div>
@@ -26,7 +23,16 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
+import { useAnimeStore } from '../stores/anime'
+
+// store
+const animeStore = useAnimeStore()
+
+onMounted(async () => {
+  await animeStore.getRecentAnime()
+})
 </script>
 
 <style></style>
