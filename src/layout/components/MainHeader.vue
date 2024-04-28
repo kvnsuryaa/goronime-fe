@@ -19,7 +19,7 @@
             <router-link to="/" class="nav-link active">Home</router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Anime List</a>
+            <router-link to="/anime-list" class="nav-link">Anime List</router-link>
           </li>
           <li class="nav-item">
             <router-link to="/schedule" class="nav-link">Schedule</router-link>

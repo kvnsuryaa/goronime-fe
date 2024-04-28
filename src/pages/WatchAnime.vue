@@ -1,5 +1,8 @@
 <template>
-  <div class="container-md container-fluid mt-4 mb-5">
+  <div
+    class="container-md container-fluid mt-4 mb-5"
+    v-if="!loadingPage && detail && episodeDetail"
+  >
     <div class="row">
       <div class="col-12 mb-3">
         <!-- <iframe
@@ -19,9 +22,8 @@
           playsinline
           controls
           class="video-anime"
-          src="https://kevinsuryaa.sgp1.digitaloceanspaces.com/goronime/anime_vid.mp4"
+          :src="episodeDetail.episodeSource"
         ></video>
-        <button class="btn btn-sm btn-info"></button>
       </div>
     </div>
     <div class="row">
@@ -31,22 +33,13 @@
             <div class="detail-anime">
               <div class="detail-anime-title">
                 <h3 class="text-white fw-bold">
-                  Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka IV: Shin Shou -
-                  Meikyuu-hen
+                  {{ detail.title || 'No Title' }}
                 </h3>
-                <span class="text-secondary"
-                  >Is It Wrong to Try to Pick Up Girls in a Dungeon? IV</span
-                >
+                <span class="text-secondary"> {{ detail.alternateTitle || '' }}</span>
               </div>
               <div class="detail-anime-rating"></div>
               <div class="detail-anime-description text-secondary">
-                Intrepid adventurer Bell Cranel has leveled up, but he can’t rest on his
-                dungeoneering laurels just yet. The Hestia Familia still has a long way to go before
-                it can stand toe-to-toe with the other Familias of Orario — but before Bell can set
-                out on his next mission, reports of a brutal murder rock the adventuring community!
-                One of Bell’s trusted allies stands accused of the horrible crime, and it’s up to
-                Bell and his friends to clear their name and uncover a nefarious plot brewing in the
-                dungeon’s dark depths.
+                {{ detail.synopsis }}
               </div>
               <div class="detail-anime-others text-secondary">
                 <div class="row mb-3">
@@ -54,15 +47,15 @@
                     <table class="table-detail-anime">
                       <tr>
                         <td width="50%">Type:</td>
-                        <td width="50%" class="text-light">TV Series</td>
+                        <td width="50%" class="text-light">{{ detail.category.name || '-' }}</td>
                       </tr>
                       <tr>
                         <td>Studio:</td>
-                        <td class="text-light">Ghibli Studio</td>
+                        <td class="text-light">{{ detail.studio.name }}</td>
                       </tr>
                       <tr>
                         <td>Status:</td>
-                        <td class="text-light">Airing</td>
+                        <td class="text-light">{{ detail.statusAnime }}</td>
                       </tr>
                     </table>
                   </div>
@@ -70,7 +63,7 @@
                     <table class="table-detail-anime">
                       <tr>
                         <td width="50%">Date Aired:</td>
-                        <td width="50%" class="text-light">Feb 18, 2023 to ?</td>
+                        <td width="50%" class="text-light">{{ detail.releaseDate || '-' }}</td>
                       </tr>
                       <tr>
                         <td>Rating:</td>
@@ -81,37 +74,21 @@
                       </tr>
                       <tr>
                         <td>Total Episode:</td>
-                        <td class="text-light">24</td>
+                        <td class="text-light">{{ detail.totalEpisode || '-' }}</td>
                       </tr>
                     </table>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-12">
-                    <button type="button" class="btn btn-sm me-1 btn-outline-secondary">
-                      Action
-                    </button>
-                    <button type="button" class="btn btn-sm me-1 btn-outline-secondary">
-                      Ecchi
-                    </button>
-                    <button type="button" class="btn btn-sm me-1 btn-outline-secondary">
-                      Shounen
-                    </button>
-                    <button type="button" class="btn btn-sm me-1 btn-outline-secondary">
-                      Seinen
-                    </button>
-                    <button type="button" class="btn btn-sm me-1 btn-outline-secondary">
-                      Adventure
-                    </button>
-                    <button type="button" class="btn btn-sm me-1 btn-outline-secondary">
-                      Historical
-                    </button>
-                    <button type="button" class="btn btn-sm me-1 btn-outline-secondary">
-                      Comedy
-                    </button>
-                    <button type="button" class="btn btn-sm me-1 btn-outline-secondary">
-                      Fantasy
-                    </button>
+                    <a
+                      href=""
+                      class="btn btn-sm me-1 btn-outline-secondary"
+                      v-for="(item, i) in detail.animeGenre"
+                      :key="`genre-${i}`"
+                    >
+                      {{ item.genre.name }}
+                    </a>
                   </div>
                 </div>
               </div>
@@ -132,7 +109,7 @@
         <div class="list-episode">
           <div
             class="episode-items"
-            v-for="(item, i) in 24"
+            v-for="(item, i) in detail.AnimeEpisode"
             :key="`epsd-${i}`"
             @click="watchPage(item)"
           >
@@ -141,8 +118,10 @@
                 <i class="bi bi-play-circle text-white"></i>
               </h6>
               <div>
-                <div class="text-white">Episode {{ item }}</div>
-                <small class="text-secondary">Feb 18, 2023</small>
+                <div class="text-white">Episode {{ item.episodeNumber }}</div>
+                <small class="text-secondary">
+                  {{ moment(item.createdAt).format('MMM DD, YYYY') }}
+                </small>
               </div>
             </div>
           </div>
@@ -153,21 +132,47 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { ElLoading } from 'element-plus'
+import { useAnimeStore } from '../stores/anime'
+import moment from 'moment'
 
 const router = useRouter()
+const animeStore = useAnimeStore()
+const slug = router.currentRoute.value.params.slug as string
+let loadingPage = ref(false)
 let current_episode = ref('')
 
-onMounted(() => {
-  const episode = router.currentRoute.value.params.episode_name
-  console.log(episode)
+const detail = computed(() => {
+  return animeStore.detail
+})
+
+const episodeDetail = computed(() => {
+  return animeStore.episodeDetail
+})
+
+onMounted(async () => {
+  loadingPage.value = true
+  const loading = ElLoading.service({
+    lock: true,
+    text: 'Loading',
+    background: 'rgba(0, 0, 0, 0.7)'
+  })
+  const episode = router.currentRoute.value.params.episode_name as string
   current_episode.value = `${episode}`
+
+  await animeStore.getDetailAnime(slug)
+  await animeStore.getEpisodeAnime(slug, episode)
+
+  setTimeout(() => {
+    loadingPage.value = false
+    loading.close()
+  }, 500)
 })
 
 function watchPage(item: any) {
-  const slug = router.currentRoute.value.params.slug
-  router.push(`/anime/${slug}/episode/${item}`).then(() => {
+  router.push(`/anime/${slug}/episode/${item.episodeNumber}`).then(() => {
     router.go(0)
   })
 }

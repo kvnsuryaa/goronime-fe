@@ -1,23 +1,23 @@
 <template>
   <div class="container-md container-fluid mt-4">
     <div class="row">
-      <div class="col-12 col-md-8">
-        <h3 class="text-white fw-bold heading-title mb-4">Recent Release</h3>
+      <div class="col-12">
+        <h2 class="text-white fw-bold heading-title mb-3">Anime List</h2>
+        <!-- <h6 class="text-white mb-4"><span class="fw-bold">You Searched for:</span> one punch</h6> -->
+        <hr />
         <div class="d-flex flex-wrap" style="gap: 10px">
           <div
             class="anime-poster"
-            v-for="(item, i) in animeStore.recentAnime"
+            v-for="(item, i) in animeStore.anime"
             :key="i"
             @click="$router.push(`/anime/${item.slug}`)"
           >
             <img :src="item.poster || '/broken_image2.webp'" alt="anime_poster" />
-            <p class="poster-episode">{{ item.latestEpisodeNumber }}</p>
-            <p class="poster-type">{{ item.categoryName }}</p>
+            <p class="poster-type">{{ item.category.name }}</p>
             <p class="poster-title">{{ item.title }}</p>
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-4"></div>
     </div>
   </div>
 </template>
@@ -31,7 +31,7 @@ import { useAnimeStore } from '../stores/anime'
 const animeStore = useAnimeStore()
 
 onMounted(async () => {
-  await animeStore.getRecentAnime()
+  await animeStore.getListAnime()
 })
 </script>
 

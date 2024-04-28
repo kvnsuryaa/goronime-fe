@@ -181,7 +181,7 @@ background: #7486FF;
     vertical-align: inherit;
 }
 
-.table-detail-anime>:not(caption)>*>* {
+.table-detail-anime>*>* {
     background-color: none !important;
     color: rgb(108,117,125) ;
     font-size: 15px;
