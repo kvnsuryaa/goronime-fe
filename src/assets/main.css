@@ -234,3 +234,49 @@ background: #7486FF;
     object-fit: contain
 }
 
+.sidebar-admin {
+    position: fixed;
+    height: 100%;
+    width: 7rem;
+    background-color: red;
+}
+
+.sidebar-admin > ul{
+    text-decoration: none;
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-admin ul li {
+    padding: 10px;
+    height: 75px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.sidebar-admin ul li > span{
+    position: absolute;
+    bottom: 10px; 
+    left: 0;
+    right: 0;
+    font-size: 14px;
+}
+
+.sidebar-admin ul li > i{
+    font-size: 20px;
+}
+
+.sidebar-admin ul li:hover {
+    background-color: blue;
+}
+  
+
+.header-admin {
+    background-color: red;
+    border-left: 1px solid black;
+}
+
+.profile-info {
+
+}

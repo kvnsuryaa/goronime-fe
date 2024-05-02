@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 // Layout
 import MainLayout from '../layout/MainLayout.vue'
 import AuthLayout from '../layout/AuthLayout.vue'
+import DashboardLayout from '../layout/DashboardLayout.vue'
 
 // Pages
 import MainPage from '../pages/MainPage.vue'
@@ -12,6 +13,18 @@ import WatchPage from '../pages/WatchAnime.vue'
 import SchedulePage from '../pages/ScheduleAnime.vue'
 import AnimeList from '../pages/AnimeList.vue'
 
+// Dashboard Page
+import MasteDataDashboardPage from '../pages/dashboard/MasterDataPage.vue'
+import SummaryDashboardPage from '../pages/dashboard/SummaryPage.vue'
+import AnimeDashboardPage from '../pages/dashboard/AnimePage.vue'
+import GenreDashboardPage from '../pages/dashboard/GenrePage.vue'
+import CategoryDashboardPage from '../pages/dashboard/CategoryPage.vue'
+import StudioDashboardPage from '../pages/dashboard/StudioPage.vue'
+import ScheduleDashboardPage from '../pages/dashboard/SchedulePage.vue'
+import AccountDashboardPage from '../pages/dashboard/AccountPage.vue'
+
+// Forms
+import AnimeForm from '../components/form/animeForm.vue'
 import LoginForm from '../components/auth/LoginForm.vue'
 import RegisterForm from '../components/auth/RegisterForm.vue'
 
@@ -48,6 +61,62 @@ const router = createRouter({
           name: 'watchAnime',
           component: WatchPage
         },
+        {
+          path: '/form/anime',
+          name: 'animeform',
+          component: AnimeForm
+        }
+      ]
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: DashboardLayout,
+      redirect: '/dashboard/summary',
+      children: [
+        {
+          path: 'summary',
+          name: 'summary',
+          component: SummaryDashboardPage
+        },
+        {
+          path: 'anime',
+          name: 'anime',
+          component: AnimeDashboardPage
+        },
+        {
+          path: 'schedule',
+          name: 'schedule',
+          component: ScheduleDashboardPage
+        },
+        {
+          path: 'accounts',
+          name: 'accounts',
+          component: AccountDashboardPage
+        },
+        {
+          path: 'master',
+          name: 'master',
+          component: MasteDataDashboardPage,
+          redirect: '/dashboard/master/category',
+          children: [
+            {
+              path: 'category',
+              name: 'category',
+              component: CategoryDashboardPage
+            },
+            {
+              path: 'genre',
+              name: 'genre',
+              component: GenreDashboardPage
+            },
+            {
+              path: 'studio',
+              name: 'studio',
+              component: StudioDashboardPage
+            },
+          ]
+        }
       ]
     },
     {
