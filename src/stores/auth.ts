@@ -12,9 +12,9 @@ export const useAuthStore = defineStore('auth', () => {
         const data = res.data
         user.value = data
 
-        const { token } = data
-        token.value = token
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+        const { token: login_token } = data
+        token.value = login_token
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`
     }
     async function register(payload: any) {
         const { data: res } = await registerAPI(payload)

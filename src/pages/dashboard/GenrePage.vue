@@ -8,7 +8,7 @@
           class="me-auto"
           placeholder="Search Genre"
         />
-        <el-button type="success" class="ms-auto" @click="visibleDialog = true">
+        <el-button type="success" class="ms-auto" @click="openCreateData">
           <i class="bi bi-plus-circle me-2"></i>
           Create
         </el-button>
@@ -17,8 +17,10 @@
         <el-table-column prop="name" label="Name" />
         <el-table-column label="Action">
           <template #default="scope">
-            <el-button size="small" @click="scope"> Edit </el-button>
-            <el-button size="small" type="danger" @click="scope"> Delete </el-button>
+            <el-button size="small" @click="setEditData(scope.row)"> Edit </el-button>
+            <el-button size="small" type="danger" @click="deleteData(scope.row.id)">
+              Delete
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -37,16 +39,32 @@
         </div>
       </template>
     </el-dialog>
+
+    <el-dialog v-model="visibleDialogUpdate" title="Create Genre" width="500">
+      <el-form :model="payload" :label-position="'top'">
+        <el-form-item label="Genre name">
+          <el-input v-model="payload.name" autocomplete="off" placeholder="" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="visibleDialogUpdate = false">Cancel</el-button>
+          <el-button type="primary" @click="submitData('update')"> Confirm </el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useGenreStore } from '@/stores/genre'
-import { computed, onMounted, reactive, ref, toRefs } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 const search = ref('')
 const visibleDialog = ref(false)
+const visibleDialogUpdate = ref(false)
 
+const id = ref('')
 const genreStore = useGenreStore()
 const payload = genreStore.payload
 const listGenre = computed(() => genreStore.list)
@@ -58,9 +76,31 @@ async function init() {
   await genreStore.getListGenre()
 }
 
-async function submitData() {
-  await genreStore.createGenre()
+async function submitData(action: string) {
+  if (action === 'update') {
+    await genreStore.updateGenre(id.value)
+  } else {
+    await genreStore.createGenre()
+  }
   visibleDialog.value = false
+  visibleDialogUpdate.value = false
+  await init()
+}
+
+async function deleteData(id: string) {
+  await genreStore.deleteGenre(id)
+  await init()
+}
+
+async function setEditData(row: any) {
+  id.value = row.id
+  payload.name = row.name
+  visibleDialogUpdate.value = true
+}
+
+async function openCreateData() {
+  payload.name = ''
+  visibleDialog.value = true
 }
 </script>
 

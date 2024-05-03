@@ -3,25 +3,9 @@
     <el-container style="height: 100%; width: 100%">
       <el-aside class="sidebar-admin">
         <ul>
-          <li>
-            <i class="bi bi-bar-chart-line"></i>
-            <span>Summary</span>
-          </li>
-          <li>
-            <i class="bi bi-camera-reels"></i>
-            <span>Anime</span>
-          </li>
-          <li>
-            <i class="bi bi-calendar"></i>
-            <span>Schedule</span>
-          </li>
-          <li>
-            <i class="bi bi-box"></i>
-            <span>Master Data</span>
-          </li>
-          <li>
-            <i class="bi bi-people"></i>
-            <span>Users</span>
+          <li v-for="(item, i) in menus" :key="i" @click.prevent="$router.push(item.link)">
+            <i :class="item.icon"></i>
+            <span>{{ item.name }}</span>
           </li>
           <li>
             <i class="bi bi-box-arrow-in-left"></i>
@@ -49,32 +33,34 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import MainHeader from './components/MainHeader.vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const menus = ref([
   {
-    title: 'Summary',
+    name: 'Summary',
     icon: 'bi bi-bar-chart-line',
-    link: ''
+    link: '/dashboard/summary'
   },
   {
-    title: 'Anime',
+    name: 'Anime',
     icon: 'bi bi-camera-reels',
-    link: ''
+    link: '/dashboard/anime'
   },
   {
-    title: 'Schedule',
+    name: 'Schedule',
     icon: 'bi bi-calendar',
-    link: ''
+    link: '/dashboard/schedule'
   },
   {
-    title: 'Master Data',
+    name: 'Master Data',
     icon: 'bi bi-box',
-    link: ''
+    link: '/dashboard/master'
   },
   {
-    title: 'Users',
+    name: 'Accounts',
     icon: 'bi bi-people',
-    link: ''
+    link: '/dashboard/accounts'
   }
 ])
 </script>

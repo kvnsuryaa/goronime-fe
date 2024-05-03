@@ -27,6 +27,18 @@ import AccountDashboardPage from '../pages/dashboard/AccountPage.vue'
 import AnimeForm from '../components/form/animeForm.vue'
 import LoginForm from '../components/auth/LoginForm.vue'
 import RegisterForm from '../components/auth/RegisterForm.vue'
+import { useAuthStore } from '@/stores/auth'
+
+// validation router for admin
+const isAdmin = (to: any, from: any, next: any) => {
+  const authStore = useAuthStore()
+  const user = authStore.user
+  if (!user) {
+    return next('/auth')
+  } else {
+    return next()
+  }
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -73,6 +85,7 @@ const router = createRouter({
       name: 'dashboard',
       component: DashboardLayout,
       redirect: '/dashboard/summary',
+      beforeEnter: isAdmin,
       children: [
         {
           path: 'summary',
@@ -98,17 +111,17 @@ const router = createRouter({
           path: 'master',
           name: 'master',
           component: MasteDataDashboardPage,
-          redirect: '/dashboard/master/category',
+          redirect: '/dashboard/master/genre',
           children: [
-            {
-              path: 'category',
-              name: 'category',
-              component: CategoryDashboardPage
-            },
             {
               path: 'genre',
               name: 'genre',
               component: GenreDashboardPage
+            },
+            {
+              path: 'category',
+              name: 'category',
+              component: CategoryDashboardPage
             },
             {
               path: 'studio',
@@ -123,6 +136,7 @@ const router = createRouter({
       path: '/auth',
       name: 'auth',
       component: AuthLayout,
+      redirect: '/auth/signin',
       children: [
         {
           path: 'signin',

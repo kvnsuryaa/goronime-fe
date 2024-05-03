@@ -29,7 +29,7 @@ export const useGenreStore = defineStore('genre', () => {
         }
     }
 
-    async function updateGenre(id: string, payload: any) {
+    async function updateGenre(id: string) {
         try {
             const { data: res } = await updateGenreAPI(id, payload)
             console.log(res)

@@ -16,12 +16,6 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import App from './App.vue'
 import router from './router'
 
-// config axios
-import axios from 'axios'
-axios.defaults.baseURL = import.meta.env.VITE_BASE_API
-
-
-
 // Vue.use(BootstrapVue);
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
@@ -34,5 +28,12 @@ pinia.use(piniaPersistedPlugin)
 app.use(ElementPlus)
 app.use(pinia)
 app.use(router)
+
+// config axios
+import axios from 'axios'
+import { useAuthStore } from './stores/auth';
+const authStore = useAuthStore()
+axios.defaults.baseURL = import.meta.env.VITE_BASE_API
+axios.defaults.headers.common['Authorization'] = authStore.token ? `Bearer ${authStore.token}` : ''
 
 app.mount('#app')

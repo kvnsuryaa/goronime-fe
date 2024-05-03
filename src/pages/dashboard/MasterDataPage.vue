@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12">
       <h2 class="text-white fw-bold heading-title mb-4">Master Data</h2>
-      <div class="card">
+      <div class="card" :style="{ minHeight: '20rem' }">
         <div class="card-body p-3">
           <div class="row">
             <div class="col-2">
