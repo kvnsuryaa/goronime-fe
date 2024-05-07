@@ -32,10 +32,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import MainHeader from './components/MainHeader.vue'
-import { useRouter } from 'vue-router'
 
-const router = useRouter()
 const menus = ref([
   {
     name: 'Summary',

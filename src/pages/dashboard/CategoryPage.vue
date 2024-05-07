@@ -58,7 +58,6 @@
 
 <script setup lang="ts">
 import { useCategoryStore } from '@/stores/category'
-import { useGenreStore } from '@/stores/genre'
 import { computed, onMounted, ref } from 'vue'
 
 const search = ref('')
