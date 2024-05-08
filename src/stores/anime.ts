@@ -1,6 +1,6 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { getDetailAnimeSlugAPI, getEpisodeDetailAPI, getListAnimeAPI, getListRecentAnimeAPI } from '@/api/anime'
+import { createAnimeAPI, deleteAnimeAPI, getDetailAnimeSlugAPI, getEpisodeDetailAPI, getListAnimeAPI, getListRecentAnimeAPI, updateAnimeAPI } from '@/api/anime'
 
 export const useAnimeStore = defineStore('anime', () => {
     const anime = ref([])
@@ -8,6 +8,7 @@ export const useAnimeStore = defineStore('anime', () => {
     const recentAnime = ref([])
     const detail = ref(null)
     const episodeDetail = ref(null)
+    const statusAnime = ref(['ONGOING', 'FINISHED', 'COMINGSOON'])
 
     async function getListAnime() {
         const { data: res } = await getListAnimeAPI()
@@ -30,15 +31,49 @@ export const useAnimeStore = defineStore('anime', () => {
         episodeDetail.value = res.data
     }
 
+    async function createAnime(payload: any) {
+        try {
+            const { data: res } = await createAnimeAPI(payload)
+            console.log(res)
+            return true
+        } catch (err) {
+            return false
+        }
+    }
+
+    async function updateAnime(id: string, payload: any) {
+        try {
+            const { data: res } = await updateAnimeAPI(id, payload)
+            console.log(res)
+            return true
+        } catch (err) {
+            return false
+        }
+    }
+
+    async function deleteAnime(id: string) {
+        try {
+            const { data: res } = await deleteAnimeAPI(id)
+            console.log(res)
+            return true
+        } catch (err) {
+            return false
+        }
+    }
+
     return {
         anime,
         pagination,
         recentAnime,
         detail,
         episodeDetail,
+        statusAnime,
         getListAnime,
         getRecentAnime,
         getDetailAnime,
-        getEpisodeAnime
+        getEpisodeAnime,
+        createAnime,
+        updateAnime,
+        deleteAnime
     }
 })

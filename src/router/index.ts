@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 // Layout
 import MainLayout from '../layout/MainLayout.vue'
@@ -27,9 +26,12 @@ import AccountDashboardPage from '../pages/dashboard/AccountPage.vue'
 import AnimeForm from '../components/form/animeForm.vue'
 import LoginForm from '../components/auth/LoginForm.vue'
 import RegisterForm from '../components/auth/RegisterForm.vue'
-import { useAuthStore } from '@/stores/auth'
+
+// Views
+import ListAnimeAdmin from '../components/views/listAnime.vue'
 
 // validation router for admin
+import { useAuthStore } from '@/stores/auth'
 const isAdmin = (to: any, from: any, next: any) => {
   const authStore = useAuthStore()
   const user = authStore.user
@@ -73,11 +75,6 @@ const router = createRouter({
           name: 'watchAnime',
           component: WatchPage
         },
-        {
-          path: '/form/anime',
-          name: 'animeform',
-          component: AnimeForm
-        }
       ]
     },
     {
@@ -95,7 +92,20 @@ const router = createRouter({
         {
           path: 'anime',
           name: 'anime',
-          component: AnimeDashboardPage
+          component: AnimeDashboardPage,
+          redirect: '/dashboard/anime/list',
+          children: [
+            {
+              path: 'list',
+              name: 'listAnimeAdmin',
+              component: ListAnimeAdmin
+            },
+            {
+              path: 'create',
+              name: 'createAnime',
+              component: AnimeForm
+            }
+          ]
         },
         {
           path: 'schedule',
@@ -149,14 +159,6 @@ const router = createRouter({
           component: RegisterForm
         }
       ]
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
     }
   ]
 })

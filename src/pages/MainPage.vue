@@ -6,7 +6,7 @@
         <div class="d-flex flex-wrap" style="gap: 10px">
           <div
             class="anime-poster"
-            v-for="(item, i) in animeStore.recentAnime"
+            v-for="(item, i) in listRecent"
             :key="i"
             @click="$router.push(`/anime/${item.slug}`)"
           >
@@ -23,13 +23,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
+import { computed, onMounted } from 'vue'
 import { useAnimeStore } from '../stores/anime'
 
 // store
 const animeStore = useAnimeStore()
-
+const listRecent: any = computed(() => animeStore.recentAnime)
 onMounted(async () => {
   await animeStore.getRecentAnime()
 })
