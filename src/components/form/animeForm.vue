@@ -1,5 +1,9 @@
 <template>
-  <h2 class="text-white fw-bold heading-title mb-4">Create Anime</h2>
+  <h2 class="text-white fw-bold heading-title mb-4">
+    <span v-if="isUpdate">Update</span>
+    <span v-else>Create</span>
+    <span> Anime </span>
+  </h2>
   <el-card>
     <el-form label-position="top" :model="payload" label-width="auto">
       <div class="row">
@@ -127,9 +131,9 @@ import { useCategoryStore } from '@/stores/category'
 import { useGenreStore } from '@/stores/genre'
 import { useStudioStore } from '@/stores/studio'
 import { useUploadStore } from '@/stores/upload'
-import type { UploadFile } from 'element-plus'
-import { reactive, onMounted, computed, ref } from 'vue'
+import { onMounted, computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import type { UploadFile } from 'element-plus'
 
 // stores
 const genreStore = useGenreStore()
@@ -141,26 +145,46 @@ const uploadStore = useUploadStore()
 const router = useRouter()
 const imageUrl = ref('')
 const posterTemp = ref(null)
-const payload = reactive({
-  title: '',
-  slug: '',
-  alternateTitle: '',
-  synopsis: '',
-  poster: '',
-  releaseDate: '',
-  totalEpisode: 0,
-  statusAnime: '',
-  categoryId: null,
-  studioId: null,
-  genres: []
-})
+const isUpdate = ref(false)
+const payload = animeStore.payload
+const currentRoute = router.currentRoute.value
 
 const statusAnimeList = animeStore.statusAnime
 const genreList: any = computed(() => genreStore.list)
 const studioList: any = computed(() => studioStore.list)
 const categoryList: any = computed(() => categoryStore.list)
+const detailAnime: any = computed(() => animeStore.detail)
 
 onMounted(async () => {
+  if (currentRoute.name === 'upateAnimeAdmin') {
+    isUpdate.value = true
+    const { slug } = currentRoute.params
+    await animeStore.getDetailAnime(slug as string)
+    payload.title = detailAnime.value.title
+    payload.alternateTitle = detailAnime.value.alternateTitle
+    payload.slug = detailAnime.value.slug
+    payload.synopsis = detailAnime.value.synopsis
+    payload.categoryId = detailAnime.value.categoryId
+    payload.studioId = detailAnime.value.studioId
+    payload.statusAnime = detailAnime.value.statusAnime
+    payload.releaseDate = detailAnime.value.releaseDate
+    payload.totalEpisode = detailAnime.value.totalEpisode
+    payload.poster = detailAnime.value.poster
+
+    imageUrl.value = detailAnime.value.poster
+
+    // genre
+    const genreIds = []
+    let i = 0
+    while (i < detailAnime.value.animeGenre.length) {
+      const genre = detailAnime.value.animeGenre[i].genre
+      const genreId = genre.id
+      genreIds.push(genreId)
+      i++
+    }
+    payload.genres = genreIds
+  }
+
   await init()
 })
 
@@ -179,6 +203,7 @@ async function handleUpload(file: UploadFile) {
     reader.readAsArrayBuffer(raw)
   }
 }
+
 async function init() {
   await genreStore.getListGenre()
   await studioStore.getListStudio()
@@ -186,8 +211,6 @@ async function init() {
 }
 
 async function submitData() {
-  console.log(payload)
-
   // uploading file to cloud
   if (posterTemp.value) {
     const formData = new FormData()
@@ -197,10 +220,19 @@ async function submitData() {
     const posterUrl: string = res.data || ''
     payload.poster = posterUrl
   }
-
-  const success = await animeStore.createAnime(payload)
-  if (!success) {
-    alert('Error on create anime')
+  if (isUpdate.value) {
+    const animeId: string = detailAnime.value.id
+    const success = await animeStore.updateAnime(animeId, payload)
+    if (!success) {
+      alert('Error on update anime')
+      return false
+    }
+  } else {
+    const success = await animeStore.createAnime(payload)
+    if (!success) {
+      alert('Error on create anime')
+      return false
+    }
   }
 
   router.push('/dashboard/anime/list')

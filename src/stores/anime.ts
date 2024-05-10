@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { createAnimeAPI, deleteAnimeAPI, getDetailAnimeSlugAPI, getEpisodeDetailAPI, getListAnimeAPI, getListRecentAnimeAPI, updateAnimeAPI } from '@/api/anime'
 
@@ -9,6 +9,35 @@ export const useAnimeStore = defineStore('anime', () => {
     const detail = ref(null)
     const episodeDetail = ref(null)
     const statusAnime = ref(['ONGOING', 'FINISHED', 'COMINGSOON'])
+    const payload = reactive({
+        title: '',
+        slug: '',
+        alternateTitle: '',
+        synopsis: '',
+        poster: '',
+        releaseDate: '',
+        totalEpisode: 0,
+        statusAnime: '',
+        categoryId: null,
+        studioId: null,
+        genres: [] as any
+    })
+
+    function resetPayload() {
+        Object.assign(payload, {
+            title: '',
+            slug: '',
+            alternateTitle: '',
+            synopsis: '',
+            poster: '',
+            releaseDate: '',
+            totalEpisode: 0,
+            statusAnime: '',
+            categoryId: null,
+            studioId: null,
+            genres: [] as any
+        });
+    }
 
     async function getListAnime() {
         const { data: res } = await getListAnimeAPI()
@@ -68,6 +97,8 @@ export const useAnimeStore = defineStore('anime', () => {
         detail,
         episodeDetail,
         statusAnime,
+        payload,
+
         getListAnime,
         getRecentAnime,
         getDetailAnime,

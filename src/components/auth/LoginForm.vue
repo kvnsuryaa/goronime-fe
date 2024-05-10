@@ -51,6 +51,7 @@ async function login() {
   try {
     submitLoading.value = true
     await authStore.login(payload)
+    router.push('/dashboard')
   } catch (err) {
     console.log(err)
   } finally {

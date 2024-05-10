@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-12">
         <div class="d-flex mb-2">
-          <el-input style="width: 240px" class="me-auto" placeholder="Search Category" />
+          <el-input style="width: 240px" class="me-auto" placeholder="Search Anime" />
           <el-button type="success" class="ms-auto" @click="router.push('/dashboard/anime/create')">
             <i class="bi bi-plus-circle me-2"></i>
             Create
@@ -27,8 +27,10 @@
           </el-table-column>
           <el-table-column label="Action">
             <template #default="scope">
-              <el-button @click="scope"> Edit </el-button>
-              <el-button type="danger" @click="scope"> Delete </el-button>
+              <el-button @click="router.push(`/dashboard/anime/detail/${scope.row.slug}`)">
+                View
+              </el-button>
+              <el-button type="danger" @click="deleteAnime(scope.row.id)"> Delete </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -53,8 +55,6 @@ onMounted(async () => {
 async function init() {
   await animeStore.getListAnime()
 }
-
-async function setEdit(row: any) {}
 
 async function deleteAnime(id: string) {}
 </script>

@@ -21,6 +21,7 @@ import CategoryDashboardPage from '../pages/dashboard/CategoryPage.vue'
 import StudioDashboardPage from '../pages/dashboard/StudioPage.vue'
 import ScheduleDashboardPage from '../pages/dashboard/SchedulePage.vue'
 import AccountDashboardPage from '../pages/dashboard/AccountPage.vue'
+import DetailAnimePage from '../pages/dashboard/DetailAnimePage.vue'
 
 // Forms
 import AnimeForm from '../components/form/animeForm.vue'
@@ -103,6 +104,16 @@ const router = createRouter({
             {
               path: 'create',
               name: 'createAnime',
+              component: AnimeForm
+            },
+            {
+              path: 'detail/:slug',
+              name: 'detailAnimeAdmin',
+              component: DetailAnimePage
+            },
+            {
+              path: 'update/:slug',
+              name: 'upateAnimeAdmin',
               component: AnimeForm
             }
           ]
