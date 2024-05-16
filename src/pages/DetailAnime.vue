@@ -160,7 +160,7 @@ function watchPage(item: any) {
   router.push(`/anime/${slug}/episode/${item.episodeNumber}`)
 }
 
-const detail = computed(() => {
+const detail: any = computed(() => {
   return animeStore.detail
 })
 
