@@ -56,5 +56,8 @@ async function init() {
   await animeStore.getListAnime()
 }
 
-async function deleteAnime(id: string) {}
+async function deleteAnime(id: string) {
+  await animeStore.deleteAnime(id)
+  await init()
+}
 </script>

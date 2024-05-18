@@ -28,7 +28,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import { useAnimeStore } from '../stores/anime'
 
 // store
-const animeStore = useAnimeStore()
+const animeStore: any = useAnimeStore()
 
 onMounted(async () => {
   await animeStore.getListAnime()
