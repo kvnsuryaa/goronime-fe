@@ -29,6 +29,12 @@
           <h6 class="text-secondary">{{ detailAnime.alternateTitle }}</h6>
           <el-tabs v-model="activeTabs" type="card" class="demo-tabs">
             <el-tab-pane label="Details" name="detail">
+              <template #label>
+                <div>
+                  <i class="bi bi-info-circle me-2"></i>
+                  <span>Details</span>
+                </div>
+              </template>
               <table class="table table-bordered">
                 <tbody>
                   <tr>
@@ -79,7 +85,15 @@
                 </tbody>
               </table>
             </el-tab-pane>
-            <el-tab-pane label="Statistic" name="statisti">Config</el-tab-pane>
+            <el-tab-pane label="Statistic" name="statistic">
+              <template #label>
+                <div>
+                  <i class="bi bi-bar-chart me-2"></i>
+                  <span>Statistic</span>
+                </div>
+              </template>
+              Config
+            </el-tab-pane>
           </el-tabs>
         </div>
       </div>
