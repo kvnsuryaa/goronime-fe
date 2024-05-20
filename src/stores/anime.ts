@@ -39,8 +39,10 @@ export const useAnimeStore = defineStore('anime', () => {
         });
     }
 
-    async function getListAnime() {
-        const { data: res } = await getListAnimeAPI()
+    async function getListAnime(params?: any) {
+        if (params) params = new URLSearchParams(params).toString()
+        else params = ''
+        const { data: res } = await getListAnimeAPI(params)
         anime.value = res.data.list
         pagination.value = res.data.pagination
     }

@@ -5,6 +5,7 @@ import piniaPersistedPlugin from 'pinia-plugin-persistedstate'
 
 import ElementPlus from 'element-plus'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import VueSelect from 'vue-select'
 // import BootstrapVue from 'bootstrap-vue';
 
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -12,6 +13,7 @@ import "bootstrap"
 import 'element-plus/dist/index.css'
 import './assets/main.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import 'vue-select/dist/vue-select.css'
 
 import App from './App.vue'
 import router from './router'
@@ -28,6 +30,7 @@ pinia.use(piniaPersistedPlugin)
 app.use(ElementPlus)
 app.use(pinia)
 app.use(router)
+app.component('v-select', VueSelect)
 
 // config axios
 import axios from 'axios'
