@@ -133,13 +133,13 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { ElLoading } from 'element-plus'
 import { useAnimeStore } from '../stores/anime'
 import moment from 'moment'
 
 const router = useRouter()
-const animeStore = useAnimeStore()
+const animeStore: any = useAnimeStore()
 const slug = router.currentRoute.value.params.slug as string
 let loadingPage = ref(false)
 let current_episode = ref('')

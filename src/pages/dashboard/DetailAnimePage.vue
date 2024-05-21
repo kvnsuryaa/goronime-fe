@@ -27,7 +27,7 @@
         <div class="col-9">
           <h2>{{ detailAnime.title }}</h2>
           <h6 class="text-secondary">{{ detailAnime.alternateTitle }}</h6>
-          <el-tabs v-model="activeTabs" type="card" class="demo-tabs">
+          <el-tabs v-model="activeTabs" type="card" class="demo-tabs" @tab-click="changeTab">
             <el-tab-pane label="Details" name="detail">
               <template #label>
                 <div>
@@ -35,55 +35,16 @@
                   <span>Details</span>
                 </div>
               </template>
-              <table class="table table-bordered">
-                <tbody>
-                  <tr>
-                    <td width="200px">Alternative Title</td>
-                    <td>{{ detailAnime.alternateTitle || '-' }}</td>
-                  </tr>
-                  <tr>
-                    <td>Status Anime</td>
-                    <td>{{ detailAnime.statusAnime || '-' }}</td>
-                  </tr>
-                  <tr>
-                    <td>Slug</td>
-                    <td>{{ detailAnime.slug || '-' }}</td>
-                  </tr>
-                  <tr>
-                    <td>Studio</td>
-                    <td>{{ detailAnime.studio.name || '-' }}</td>
-                  </tr>
-                  <tr>
-                    <td>Category</td>
-                    <td>{{ detailAnime.category.name || '-' }}</td>
-                  </tr>
-                  <tr>
-                    <td>Release Date</td>
-                    <td>{{ detailAnime.releaseDate || '-' }}</td>
-                  </tr>
-                  <tr>
-                    <td>Total Episode</td>
-                    <td>{{ detailAnime.totalEpisode || '-' }}</td>
-                  </tr>
-                  <tr>
-                    <td>Synopsis</td>
-                    <td>{{ detailAnime.synopsis || '-' }}</td>
-                  </tr>
-                  <tr>
-                    <td>Genre</td>
-                    <td>
-                      <a
-                        href=""
-                        class="btn btn-sm me-1 btn-outline-secondary"
-                        v-for="(item, i) in detailAnime.animeGenre"
-                        :key="`genre-${i}`"
-                      >
-                        {{ item.genre.name }}
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <InfoAnime :detail="detailAnime" />
+            </el-tab-pane>
+            <el-tab-pane label="Episodes" name="episodes">
+              <template #label>
+                <div>
+                  <i class="bi bi-camera-reels me-2"></i>
+                  <span>Episodes</span>
+                </div>
+              </template>
+              <ListEpisode />
             </el-tab-pane>
             <el-tab-pane label="Statistic" name="statistic">
               <template #label>
@@ -92,7 +53,7 @@
                   <span>Statistic</span>
                 </div>
               </template>
-              Config
+              <el-empty description="No Statistic"> </el-empty>
             </el-tab-pane>
           </el-tabs>
         </div>
@@ -102,13 +63,18 @@
 </template>
 
 <script setup lang="ts">
+import InfoAnime from '../../components/views/infoAnime.vue'
+import ListEpisode from '../../components/views/listEpisode.vue'
 import { useAnimeStore } from '@/stores/anime'
+import { useEpisodeStore } from '@/stores/episode'
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import type { TabsPaneContext } from 'element-plus'
 
 const router = useRouter()
 const currentRoute = router.currentRoute.value
 
+const episodeStore = useEpisodeStore()
 const animeStore = useAnimeStore()
 const activeTabs = ref('detail')
 const detailAnime: any = computed(() => animeStore.detail)
@@ -122,5 +88,12 @@ async function init() {
   await animeStore.getDetailAnime(slug as string)
 }
 
-async function deleteAnime(id: string) {}
+async function changeTab(tb: TabsPaneContext) {
+  const tabName = tb?.paneName as string
+  if (tabName === 'episodes') {
+    episodeStore.loadingPage = true
+    await episodeStore.getListEpisode(detailAnime.value.slug)
+    episodeStore.loadingPage = false
+  }
+}
 </script>
