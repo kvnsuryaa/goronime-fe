@@ -7,7 +7,7 @@
             <i :class="item.icon"></i>
             <span>{{ item.name }}</span>
           </li>
-          <li>
+          <li @click.prevent="logout">
             <i class="bi bi-box-arrow-in-left"></i>
             <span>Logout</span>
           </li>
@@ -31,8 +31,12 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from '@/stores/auth'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
+const authStore = useAuthStore()
 const menus = ref([
   {
     name: 'Summary',
@@ -60,6 +64,11 @@ const menus = ref([
     link: '/dashboard/accounts'
   }
 ])
+
+async function logout() {
+  await authStore.logout()
+  router.push('/')
+}
 </script>
 
 <style scoped>
