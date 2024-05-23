@@ -1,11 +1,13 @@
 import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { createAnimeAPI, deleteAnimeAPI, getDetailAnimeSlugAPI, getEpisodeDetailAPI, getListAnimeAPI, getListRecentAnimeAPI, updateAnimeAPI } from '@/api/anime'
+import { fi } from 'element-plus/es/locales.mjs'
 
 export const useAnimeStore = defineStore('anime', () => {
     const anime = ref([])
     const pagination = ref({})
     const recentAnime = ref([])
+    const finishedAnime = ref([])
     const detail = ref(null)
     const episodeDetail = ref(null)
     const statusAnime = ref(['ONGOING', 'FINISHED', 'COMINGSOON'])
@@ -47,9 +49,14 @@ export const useAnimeStore = defineStore('anime', () => {
         pagination.value = res.data.pagination
     }
 
-    async function getRecentAnime() {
-        const { data: res } = await getListRecentAnimeAPI()
-        recentAnime.value = res.data
+    async function getRecentAnime(status?: string) {
+        const params = { status: 'ONGOING' }
+        if (status) params.status = status
+        const queries = new URLSearchParams(params).toString()
+
+        const { data: res } = await getListRecentAnimeAPI(queries)
+        if (params.status === 'ONGOING') recentAnime.value = res.data
+        else if (params.status === 'FINISHED') finishedAnime.value = res.data
     }
 
     async function getDetailAnime(slug: string) {
@@ -99,6 +106,7 @@ export const useAnimeStore = defineStore('anime', () => {
         detail,
         episodeDetail,
         statusAnime,
+        finishedAnime,
         payload,
 
         getListAnime,
