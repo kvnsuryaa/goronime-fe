@@ -148,7 +148,7 @@
 <script setup lang="ts">
 import moment from 'moment'
 import { computed, onMounted, ref } from 'vue'
-import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useAnimeStore } from '../stores/anime'
 import { ElLoading } from 'element-plus'
 

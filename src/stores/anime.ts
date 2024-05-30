@@ -1,7 +1,6 @@
 import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { createAnimeAPI, deleteAnimeAPI, getDetailAnimeSlugAPI, getEpisodeDetailAPI, getListAnimeAPI, getListRecentAnimeAPI, updateAnimeAPI } from '@/api/anime'
-import { fi } from 'element-plus/es/locales.mjs'
 
 export const useAnimeStore = defineStore('anime', () => {
     const anime = ref([])
@@ -134,22 +133,6 @@ export const useAnimeStore = defineStore('anime', () => {
         studioId: null,
         genres: [] as any
     })
-
-    function resetPayload() {
-        Object.assign(payload, {
-            title: '',
-            slug: '',
-            alternateTitle: '',
-            synopsis: '',
-            poster: '',
-            releaseDate: '',
-            totalEpisode: 0,
-            statusAnime: '',
-            categoryId: null,
-            studioId: null,
-            genres: [] as any
-        });
-    }
 
     function resetAnimeAlphabeth() {
         let i = 0
