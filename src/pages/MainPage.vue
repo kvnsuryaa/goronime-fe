@@ -3,7 +3,8 @@
     <div class="row">
       <div class="col-12 col-md-8">
         <div class="mb-5">
-          <h3 class="text-white fw-bold heading-title mb-4">Recent Release</h3>
+          <h3 class="fw-bold heading-title mb-4">Recent Release</h3>
+          <hr />
           <div class="d-flex flex-wrap" style="gap: 10px">
             <div
               class="anime-poster"
@@ -19,7 +20,8 @@
           </div>
         </div>
         <div>
-          <h3 class="text-white fw-bold heading-title mb-4">Recent Finished</h3>
+          <h3 class="fw-bold heading-title mb-4">Recent Finished</h3>
+          <hr />
           <div class="d-flex flex-wrap" style="gap: 10px">
             <div
               class="anime-poster"

@@ -6,7 +6,7 @@ body {
     padding: 0;
     margin: 0;
     letter-spacing: 0.4px !important;
-    background-color: #0b0c2a;
+    /* background-color: #0b0c2a; */
 }
 
 ::-webkit-scrollbar {
@@ -152,7 +152,7 @@ body {
     bottom: 0;
     padding: 3px;
     margin: 0;
-    color: white;
+    /* color: white; */
     font-size: 13px;
     background-color: rgba(0, 0, 0, 0.528);
     transition: 0.2s ease-in;
@@ -202,7 +202,7 @@ body {
 
 .episode-items {
     padding: 3px;
-    border: 1px solid white;
+    border: 1px solid grey;
     border-radius: 3px;
     margin-bottom: 5px;
     cursor: pointer;
@@ -220,13 +220,13 @@ body {
 }
 
 .heading-title::after {
-    width: 4px;
+    width: 5px;
     height: 32px;
     content: '';
     background-color: #7486FF;
     position: absolute;
     left: 0;
-    top: -5px;
+    top: -7px;
 }
 
 .video-anime {
@@ -308,4 +308,33 @@ body {
     width: 178px;
     height: 178px;
     text-align: center;
+}
+
+.box-list-anime {
+    margin-bottom: 20px;
+}
+
+.box-list-anime ul {
+    margin: 0;
+    overflow: hidden;
+    padding: 15px;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.box-list-anime ul li {
+    margin-left: 15px;
+    float: left;
+    line-height: 20px;
+    margin-bottom: 3px;
+    width: 47%;
+}
+
+.box-list-anime ul li a{
+    text-decoration: none;
+    color: black;
+}
+
+.box-list-anime ul li a:hover{
+    color: blue;
 }

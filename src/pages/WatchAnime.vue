@@ -32,7 +32,7 @@
           <div class="col-12">
             <div class="detail-anime">
               <div class="detail-anime-title">
-                <h3 class="text-white fw-bold">
+                <h3 class="fw-bold">
                   {{ detail.title || 'No Title' }}
                 </h3>
                 <span class="text-secondary"> {{ detail.alternateTitle || '' }}</span>
@@ -47,15 +47,15 @@
                     <table class="table-detail-anime">
                       <tr>
                         <td width="50%">Type:</td>
-                        <td width="50%" class="text-light">{{ detail.category.name || '-' }}</td>
+                        <td width="50%" class="">{{ detail.category.name || '-' }}</td>
                       </tr>
                       <tr>
                         <td>Studio:</td>
-                        <td class="text-light">{{ detail.studio.name }}</td>
+                        <td class="">{{ detail.studio.name }}</td>
                       </tr>
                       <tr>
                         <td>Status:</td>
-                        <td class="text-light">{{ detail.statusAnime }}</td>
+                        <td class="">{{ detail.statusAnime }}</td>
                       </tr>
                     </table>
                   </div>
@@ -63,18 +63,18 @@
                     <table class="table-detail-anime">
                       <tr>
                         <td width="50%">Date Aired:</td>
-                        <td width="50%" class="text-light">{{ detail.releaseDate || '-' }}</td>
+                        <td width="50%" class="">{{ detail.releaseDate || '-' }}</td>
                       </tr>
                       <tr>
                         <td>Rating:</td>
-                        <td class="text-light">
+                        <td class="">
                           <i class="bi bi-star-fill me-1"></i>
                           <span>8.35</span>
                         </td>
                       </tr>
                       <tr>
                         <td>Total Episode:</td>
-                        <td class="text-light">{{ detail.totalEpisode || '-' }}</td>
+                        <td class="">{{ detail.totalEpisode || '-' }}</td>
                       </tr>
                     </table>
                   </div>
@@ -97,7 +97,7 @@
         </div>
       </div>
       <div class="col-12 col-md-3">
-        <h4 class="text-white fw-bold">
+        <h4 class="fw-bold">
           <i class="bi bi-camera-reels me-2"></i>
           <span>Episode {{ current_episode }}</span>
         </h4>
@@ -115,10 +115,10 @@
           >
             <div class="d-flex">
               <h6 class="mt-auto mb-auto me-3 ms-3">
-                <i class="bi bi-play-circle text-white"></i>
+                <i class="bi bi-play-circle"></i>
               </h6>
               <div>
-                <div class="text-white">Episode {{ item.episodeNumber }}</div>
+                <div class="">Episode {{ item.episodeNumber }}</div>
                 <small class="text-secondary">
                   {{ moment(item.createdAt).format('MMM DD, YYYY') }}
                 </small>

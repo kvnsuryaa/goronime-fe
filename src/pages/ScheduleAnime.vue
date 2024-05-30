@@ -2,161 +2,50 @@
   <div class="container-md container-fluid mt-4">
     <div class="row">
       <div class="col-12">
-        <h3 class="text-white fw-bold heading-title mb-4">Schedule Anime</h3>
-        <el-tabs v-model="activeName" type="card" class="demo-tabs" @tab-click="handleClick">
-          <el-tab-pane name="minggu">
+        <h3 class="fw-bold heading-title mb-4">Schedule Anime</h3>
+        <hr />
+        <el-tabs v-model="selectedTab" type="card" class="demo-tabs" @tab-click="changeTab">
+          <el-tab-pane name="Sunday" label="Sunday" class="" lazy>
             <template #label>
-              <span>Minggu</span>
+              <span>Sunday</span>
             </template>
-            <div class="d-flex flex-wrap" style="gap: 10px">
-              <div
-                class="anime-poster"
-                v-for="(item, i) in 3"
-                :key="i"
-                @click="$router.push(`/anime/${item}`)"
-              >
-                <img
-                  src="https://cdn.myanimelist.net/images/anime/1752/139314.jpg"
-                  alt="anime_poster"
-                />
-                <p class="poster-type">TV</p>
-                <p class="poster-title">
-                  Tsuki ga Michibiku Isekai Douchuu Season 2 Subtitle Indonesia
-                </p>
-              </div>
-            </div>
+            <ListPublicSchedule type="Sunday" />
           </el-tab-pane>
-          <el-tab-pane name="senin">
+          <el-tab-pane name="Monday" label="Monday" class="" lazy>
             <template #label>
-              <span>Senin</span>
+              <span>Monday</span>
             </template>
-            <div class="d-flex flex-wrap" style="gap: 10px">
-              <div
-                class="anime-poster"
-                v-for="(item, i) in 5"
-                :key="i"
-                @click="$router.push(`/anime/${item}`)"
-              >
-                <img
-                  src="https://cdn.myanimelist.net/images/anime/1752/139314.jpg"
-                  alt="anime_poster"
-                />
-                <p class="poster-type">TV</p>
-                <p class="poster-title">
-                  Tsuki ga Michibiku Isekai Douchuu Season 2 Subtitle Indonesia
-                </p>
-              </div>
-            </div>
+            <ListPublicSchedule type="Monday" />
           </el-tab-pane>
-          <el-tab-pane name="selasa">
+          <el-tab-pane name="Tuesday" label="Tuesday" class="" lazy>
             <template #label>
-              <span>Selasa</span>
+              <span>Tuesday</span>
             </template>
-            <div class="d-flex flex-wrap" style="gap: 10px">
-              <div
-                class="anime-poster"
-                v-for="(item, i) in 4"
-                :key="i"
-                @click="$router.push(`/anime/${item}`)"
-              >
-                <img
-                  src="https://cdn.myanimelist.net/images/anime/1752/139314.jpg"
-                  alt="anime_poster"
-                />
-                <p class="poster-type">TV</p>
-                <p class="poster-title">
-                  Tsuki ga Michibiku Isekai Douchuu Season 2 Subtitle Indonesia
-                </p>
-              </div>
-            </div>
+            <ListPublicSchedule type="Tuesday" />
           </el-tab-pane>
-          <el-tab-pane name="rabu">
+          <el-tab-pane name="Wednesday" label="Wednesday" class="" lazy>
             <template #label>
-              <span>Rabu</span>
+              <span>Wednesday</span>
             </template>
-            <div class="d-flex flex-wrap" style="gap: 10px">
-              <div
-                class="anime-poster"
-                v-for="(item, i) in 2"
-                :key="i"
-                @click="$router.push(`/anime/${item}`)"
-              >
-                <img
-                  src="https://cdn.myanimelist.net/images/anime/1752/139314.jpg"
-                  alt="anime_poster"
-                />
-                <p class="poster-type">TV</p>
-                <p class="poster-title">
-                  Tsuki ga Michibiku Isekai Douchuu Season 2 Subtitle Indonesia
-                </p>
-              </div>
-            </div>
+            <ListPublicSchedule type="Wednesday" />
           </el-tab-pane>
-          <el-tab-pane name="kamis">
+          <el-tab-pane name="Thursday" label="Thursday" class="" lazy>
             <template #label>
-              <span>Kamis</span>
+              <span>Thursday</span>
             </template>
-            <div class="d-flex flex-wrap" style="gap: 10px">
-              <div
-                class="anime-poster"
-                v-for="(item, i) in 2"
-                :key="i"
-                @click="$router.push(`/anime/${item}`)"
-              >
-                <img
-                  src="https://cdn.myanimelist.net/images/anime/1752/139314.jpg"
-                  alt="anime_poster"
-                />
-                <p class="poster-type">TV</p>
-                <p class="poster-title">
-                  Tsuki ga Michibiku Isekai Douchuu Season 2 Subtitle Indonesia
-                </p>
-              </div>
-            </div>
+            <ListPublicSchedule type="Thursday" />
           </el-tab-pane>
-          <el-tab-pane name="jumaat">
+          <el-tab-pane name="Friday" label="Friday" class="" lazy>
             <template #label>
-              <span>Jumaat</span>
+              <span>Friday</span>
             </template>
-            <div class="d-flex flex-wrap" style="gap: 10px">
-              <div
-                class="anime-poster"
-                v-for="(item, i) in 8"
-                :key="i"
-                @click="$router.push(`/anime/${item}`)"
-              >
-                <img
-                  src="https://cdn.myanimelist.net/images/anime/1752/139314.jpg"
-                  alt="anime_poster"
-                />
-                <p class="poster-type">TV</p>
-                <p class="poster-title">
-                  Tsuki ga Michibiku Isekai Douchuu Season 2 Subtitle Indonesia
-                </p>
-              </div>
-            </div>
+            <ListPublicSchedule type="Friday" />
           </el-tab-pane>
-          <el-tab-pane name="sabtu">
+          <el-tab-pane name="Saturday" label="Saturday" class="" lazy>
             <template #label>
-              <span>Sabtu</span>
+              <span>Saturday</span>
             </template>
-            <div class="d-flex flex-wrap" style="gap: 10px">
-              <div
-                class="anime-poster"
-                v-for="(item, i) in 1"
-                :key="i"
-                @click="$router.push(`/anime/${item}`)"
-              >
-                <img
-                  src="https://cdn.myanimelist.net/images/anime/1752/139314.jpg"
-                  alt="anime_poster"
-                />
-                <p class="poster-type">TV</p>
-                <p class="poster-title">
-                  Tsuki ga Michibiku Isekai Douchuu Season 2 Subtitle Indonesia
-                </p>
-              </div>
-            </div>
+            <ListPublicSchedule type="Saturday" />
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -165,18 +54,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
+import { onMounted, ref } from 'vue'
+import ListPublicSchedule from '../components/views/listPublicSchedule.vue'
+import type { TabsPaneContext } from 'element-plus'
+import { useScheduleStore } from '@/stores/schedule'
 
-const activeName = ref('minggu')
+const scheduleStore = useScheduleStore()
+const selectedTab = ref('Sunday')
+onMounted(async () => {
+  await changeTab()
+})
+
+async function changeTab(tb?: TabsPaneContext) {
+  const tabName = tb?.paneName as string
+  scheduleStore.loadingPage = true
+  await scheduleStore.getListSchedule(tabName || selectedTab.value)
+  scheduleStore.loadingPage = false
+}
 </script>
-
-<style>
-.is-active > span {
-  color: #ffffff !important;
-}
-
-.el-tabs__item > span {
-  color: rgb(108, 117, 125);
-}
-</style>

@@ -21,7 +21,7 @@
         </div>
         <div class="row">
           <div class="col-12">
-            <h3 class="text-white fw-bold">Episodes</h3>
+            <h3 class="fw-bold">Episodes</h3>
             <input
               type="text"
               class="form-control form-control-sm mb-3"
@@ -36,10 +36,10 @@
               >
                 <div class="d-flex">
                   <h6 class="mt-auto mb-auto me-3 ms-3">
-                    <i class="bi bi-play-circle text-white"></i>
+                    <i class="bi bi-play-circle"></i>
                   </h6>
                   <div>
-                    <div class="text-white">Episode {{ item.episodeNumber }}</div>
+                    <div class="">Episode {{ item.episodeNumber }}</div>
                     <small class="text-secondary">
                       {{ moment(item.createdAt).format('MMM DD, YYYY') }}
                     </small>
@@ -55,7 +55,7 @@
           <div class="col-12">
             <div class="detail-anime">
               <div class="detail-anime-title">
-                <h3 class="text-white fw-bold">
+                <h3 class="fw-bold">
                   {{ detail.title || 'No Title' }}
                 </h3>
                 <span class="text-secondary">
@@ -72,16 +72,16 @@
                     <table class="table-detail-anime">
                       <tr>
                         <td width="50%">Type:</td>
-                        <!-- <td width="50%" class="text-light">TV Series</td> -->
-                        <td width="50%" class="text-light">{{ detail.category.name || '-' }}</td>
+                        <!-- <td width="50%" class="">TV Series</td> -->
+                        <td width="50%" class="">{{ detail.category.name || '-' }}</td>
                       </tr>
                       <tr>
                         <td>Studio:</td>
-                        <td class="text-light">{{ detail.studio.name }}</td>
+                        <td class="">{{ detail.studio.name }}</td>
                       </tr>
                       <tr>
                         <td>Status:</td>
-                        <td class="text-light">{{ detail.statusAnime }}</td>
+                        <td class="">{{ detail.statusAnime }}</td>
                       </tr>
                     </table>
                   </div>
@@ -89,18 +89,18 @@
                     <table class="table-detail-anime">
                       <tr>
                         <td width="50%">Date Aired:</td>
-                        <td width="50%" class="text-light">{{ detail.releaseDate || '-' }}</td>
+                        <td width="50%" class="">{{ detail.releaseDate || '-' }}</td>
                       </tr>
                       <tr>
                         <td>Rating:</td>
-                        <td class="text-light">
+                        <td class="">
                           <i class="bi bi-star-fill me-1"></i>
                           <span>8.35</span>
                         </td>
                       </tr>
                       <tr>
                         <td>Total Episode:</td>
-                        <td class="text-light">{{ detail.totalEpisode || '-' }}</td>
+                        <td class="">{{ detail.totalEpisode || '-' }}</td>
                       </tr>
                     </table>
                   </div>
@@ -123,7 +123,7 @@
         </div>
         <div class="row">
           <div class="col-12">
-            <h3 class="text-white fw-bold">Reviews</h3>
+            <h3 class="fw-bold">Reviews</h3>
             <div>
               <textarea
                 class="form-control"
