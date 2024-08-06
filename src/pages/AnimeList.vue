@@ -8,7 +8,9 @@
           <h4 class="border-bottom pb-2">{{ item.name }}</h4>
           <ul>
             <li v-for="(anime, o) in item.anime" :key="`anime-${o}`">
-              <a href="#" @click="$router.push(`/anime/${anime[1]}`)">{{ anime[0] }}</a>
+              <RouterLink :to="`/anime/${anime[1]}`">
+                {{ anime[0] }}
+              </RouterLink>
             </li>
           </ul>
         </div>
@@ -19,6 +21,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
+import { RouterLink } from 'vue-router'
 import { useAnimeStore } from '../stores/anime'
 
 // store

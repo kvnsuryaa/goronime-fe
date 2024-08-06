@@ -51,7 +51,7 @@
                       </tr>
                       <tr>
                         <td>Studio:</td>
-                        <td class="">{{ detail.studio.name }}</td>
+                        <td class="">{{ detail.studio?.name || '-' }}</td>
                       </tr>
                       <tr>
                         <td>Status:</td>
